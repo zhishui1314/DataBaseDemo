@@ -95,7 +95,7 @@ public class DBHelp extends SQLiteOpenHelper {
 //        drop table if exists people;//删除表people 如果 people 存在
 //        create table if not exists ppp(name varchar(20));//如果表ppp不存在，创建表
 //        Cursor cursor = rdb.rawQuery("select 姓名,年龄,性别 from student where 姓名 = ? order by name desc",new String[]{name});
-        Cursor cursor = rdb.rawQuery("select 姓名,年龄,性别 from student where 姓名 like '%" + name +"%'",null);
+        Cursor cursor = rdb.rawQuery("select 姓名,年龄,性别 from student where 姓名 like '%" + name +"%'",null);//%左右不能有空格
         while (cursor.moveToNext()){
             String name1 = cursor.getString(0);
             String age = cursor.getString(1);
