@@ -1,12 +1,10 @@
 package com.example.administrator.databasedemo;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public String db_name;
     public String databaseFilename;
     private DBHelp dbHelp = null;
+    private List<Student> students;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         copyDataBase();
         dbHelp = new DBHelp(this);
 
+
+
     }
 
     public void add(View view) {
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         dbHelp.update("王五","222");
     }
     public void select(View view) {
-        List<Student> students = dbHelp.select();
-        for (Student student:students){
+        students = dbHelp.select();
+        for (Student student: students){
             Log.e("student",student.toString());
         }
     }
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 }
                 if (inputStream != null) {
                     try {
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean isExits() {
 
         SQLiteDatabase checkDB = null;
-        File file = new File(path);
+        File file = new File(databaseFilename);
         if (file.exists()) {
             checkDB = SQLiteDatabase.openDatabase(databaseFilename, null,
                     SQLiteDatabase.OPEN_READONLY);
